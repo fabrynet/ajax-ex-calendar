@@ -28,11 +28,11 @@ function sendKeyup(event) {
 }
 
 function prevMonth () {
-  var year = "2018";
+  var year = 2018;
   var monthNum = $('.months h1').data('month');
 
   if (monthNum == 1) {
-    alert('Attenzione, non è possibile andare indietro.');
+    alert('Attenzione, non è possibile andare nel ' + (year - 1));
     var monthPrev = 1;
   } else {
     var monthPrev = monthNum - 1;
@@ -42,11 +42,11 @@ function prevMonth () {
 }
 
 function nextMonth () {
-  var year = "2018";
+  var year = 2018;
   var monthNum = $('.months h1').data('month');
 
   if (monthNum == 12) {
-    alert('Attenzione, non è possibile andare avanti.');
+    alert('Attenzione, non è possibile andare nel ' + (year + 1));
     var monthNext = 12;
   } else {
     var monthNext = monthNum + 1;

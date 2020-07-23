@@ -93,8 +93,8 @@ ul {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  width: calc(100% / 6);
-  height: calc(100% / 6);
+  width: calc(100% / 7);
+  height: calc(100% / 7);
   border: 1px solid black;
   cursor: pointer;
 }
