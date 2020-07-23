@@ -88,6 +88,7 @@ ul {
   height: 800px;
 }
 .day {
+  position: relative;
   float: left;
   display: flex;
   flex-flow: column nowrap;
@@ -97,6 +98,11 @@ ul {
   height: calc(100% / 7);
   border: 1px solid black;
   cursor: pointer;
+}
+.day span {
+  position: absolute;
+  bottom: 10px;
+  font-size: 12px;
 }
 .red {
   color: red;
