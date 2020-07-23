@@ -39,9 +39,8 @@ ul {
   align-items: center;
 }
 .modal {
-  width: 800px;
-  min-height: 800px;
-  background-color: #FC803B;
+  min-width: 200px;
+  background-color: #fff;
   border-radius: 10px;
   text-align: center;
   padding: 20px;
@@ -85,6 +84,10 @@ ul {
   cursor: pointer;
 }
 .days {
+  width: 800px;
+  height: 800px;
+}
+.day {
   float: left;
   display: flex;
   flex-flow: column nowrap;
@@ -94,4 +97,7 @@ ul {
   height: calc(100% / 6);
   border: 1px solid black;
   cursor: pointer;
+}
+.red {
+  color: red;
 }

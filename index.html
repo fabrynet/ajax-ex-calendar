@@ -11,28 +11,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/it.min.js"></script>
     <script id="days-template" type="text/x-handlebars-template">
-      <div class="days">
+      <div class="day" data-datecomplete="{{ datecomplete }}">
         <h1>{{ day }}</h1>
-        <span>{{ holiday }}</span>
       </div>
     </script>
+    <script id="holidays-template" type="text/x-handlebars-template">
+        <span>{{ holiday }}</span>
+    </script>
     <script id="months-template" type="text/x-handlebars-template">
-      <div class="months">
-        <div class="prev">
-          <i class="fas fa-angle-left"></i>
-        </div>
-        <h1>{{ month }}</h1>
-        <div class="next">
-          <i class="fas fa-angle-right"></i>
-        </div>
+      <div class="prev">
+        <i class="fas fa-angle-left"></i>
+      </div>
+      <h1>{{ month }}</h1>
+      <div class="next">
+        <i class="fas fa-angle-right"></i>
       </div>
     </script>
   </head>
   <body>
     <div class="container">
       <div class="modal">
+        <div class="months">
 
+        </div>
+        <div class="days">
 
+        </div>
 
       </div>
     </div>
