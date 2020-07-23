@@ -51,8 +51,7 @@ ul {
   max-width: 150px;
 }
 .modal i {
-  font-size: 5em;
-  color: green;
+  font-size: 2em;
 }
 .btn {
   width: 100%;
@@ -75,6 +74,15 @@ ul {
   max-width: 0;
   overflow: hidden;
   transition: scale .7s, ease .5s;
+}
+.months {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.months .prev,
+.months .next {
+  cursor: pointer;
 }
 .days {
   float: left;

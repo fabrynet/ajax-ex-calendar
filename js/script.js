@@ -11,46 +11,14 @@
 // Chiedere all'api quali sono le festività per il mese scelto
 // Evidenziare le festività nella lista
 
-function getHolidays(month) {
+// disegno la griglia di quadrati per i giorni del calendario relativi al mese e all'anno
+function drawDays (month, year) {
 
-  $.ajax({
-    url: 'https://flynn.boolean.careers/exercises/api/holidays',
-    data: {
-      month: month - 1,
-      year: 2018
-    },
-    method: 'GET',
-    success: function(data) {
-      var success = data['success'];
-      var holidays = data['response'];
-      console.log(success, holidays);
-
-      if (success) {
-        var date = month + "-2018";
-        var monthDays = moment(date,'M-YYYY').daysInMonth();
-        drawDays(month, monthDays, holidays);
-        if (holidays) {
-
-        }
-
-      } else {
-        console.log(data);
-      }
-    },
-    error: function(err) {
-      console.log(err);
-    }
-  });
-
-}
-
-// disegno la griglia di quadrati per i giorni del calendario
-function drawDays (month, monthDays, holidays) {
-
-  console.log(holidays);
-  
   var target = $('.modal');
   target.empty();
+
+  var date = month + "-" + year;
+  var monthDays = moment(date,'M-YYYY').daysInMonth();
 
   var template = $('#days-template').html();
   var compiled = Handlebars.compile(template);
@@ -69,16 +37,48 @@ function drawDays (month, monthDays, holidays) {
   for (var i = 1; i <= monthDays; i++) {
     var dayHTML = compiled({
       day: i,
-      holiday: 'ciao'
+      holiday: getHolidays(month, year)
     });
     target.append(dayHTML);
   }
 
 }
 
+function getHolidays(month, year) {
+
+  $.ajax({
+    url: 'https://flynn.boolean.careers/exercises/api/holidays',
+    data: {
+      month: month - 1,
+      year: year
+    },
+    method: 'GET',
+    success: function(data) {
+      var success = data['success'];
+      var holidays = data['response'];
+      console.log(success, holidays);
+
+      if (success) {
+
+        if (holidays) {
+
+        }
+
+      } else {
+        console.log(data);
+      }
+    },
+    error: function(err) {
+      console.log(err);
+    }
+  });
+
+}
+
 function init() {
   var month = 1;
-  getHolidays(month);
+  var year = 2018;
+  drawDays(month, year);
 }
 
 $(document).ready(init);
