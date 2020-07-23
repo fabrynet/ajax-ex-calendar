@@ -14,6 +14,17 @@
 function addListeners() {
   $(document).on('click','.prev', prevMonth);
   $(document).on('click','.next', nextMonth);
+  $(document).keyup(sendKeyup);
+}
+
+function sendKeyup(event) {
+  var keyWhich = event.which;
+  var keyCode = event.keyCode;
+  if (keyWhich == 39 || keyCode == 39) {
+      nextMonth();
+    } else if (keyWhich == 37 || keyCode == 37) {
+      prevMonth();
+    }
 }
 
 function prevMonth () {
