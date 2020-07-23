@@ -12,8 +12,57 @@
 // Evidenziare le festività nella lista
 
 function addListeners() {
-
+  $(document).on('click','.prev', prevMonth);
+  $(document).on('click','.next', nextMonth);
 }
+
+function prevMonth () {
+  var year = "2018";
+  var monthNum = $('.months h1').data('month');
+
+  if (monthNum == 1) {
+    alert('Attenzione, non è possibile andare indietro.');
+    var monthPrev = 1;
+  } else {
+    var monthPrev = monthNum - 1;
+  }
+  drawMonths(monthPrev, year);
+  drawDays(monthPrev, year);
+}
+
+function nextMonth () {
+  var year = "2018";
+  var monthNum = $('.months h1').data('month');
+
+  if (monthNum == 12) {
+    alert('Attenzione, non è possibile andare avanti.');
+    var monthNext = 12;
+  } else {
+    var monthNext = monthNum + 1;
+  }
+  drawMonths(monthNext, year);
+  drawDays(monthNext, year);
+}
+
+function drawMonths (month, year) {
+
+  var target = $('.months');
+  target.empty();
+
+  var template = $('#months-template').html();
+  var compiled = Handlebars.compile(template);
+
+  var mom = moment(month,'M');
+  var monthOfYear = mom.format('MMMM');
+
+  var monthHTML = compiled({
+    month: monthOfYear,
+    monthNumber: month,
+    year: year
+  });
+  target.prepend(monthHTML);
+}
+
 // disegno la griglia di quadrati per i giorni del calendario relativi al mese e all'anno
 function drawDays (month, year) {
 
@@ -29,7 +78,6 @@ function drawDays (month, year) {
 
   for (var i = 1; i <= monthDays; i++) {
     var datecomplete = moment({ year: mom.year(), month: mom.month(), day: i});
-    console.log(month);
     var dayHTML = compiled({
       day: i,
       datecomplete: datecomplete.format('YYYY-MM-DD')
@@ -40,23 +88,6 @@ function drawDays (month, year) {
   drawMonths (month, year);
   getHolidays(month, year);
 
-}
-
-function drawMonths (month, year) {
-
-  var target = $('.months');
-  target.empty();
-
-  var template = $('#months-template').html();
-  var compiled = Handlebars.compile(template);
-
-  var mom = moment(month,'M');
-  var monthOfYear = mom.format('MMMM');
-
-  var monthHTML = compiled({
-    month: monthOfYear
-  });
-  target.prepend(monthHTML);
 }
 
 function getHolidays(month, year) {
@@ -71,7 +102,6 @@ function getHolidays(month, year) {
     success: function(data) {
       var success = data['success'];
       var holidays = data['response'];
-      console.log(success, holidays);
 
       if (success) {
         printHolidays(holidays);
@@ -97,16 +127,15 @@ function printHolidays (holidays) {
   holidayHTML = compiled({
     holiday: holidays[i].name
   });
-  console.log(holidayHTML);
   target.append(holidayHTML);
   }
 }
 
 function init() {
-  var month = 4;
+  var month = 1;
   var year = 2018;
-  drawDays(month, year);
   drawMonths(month, year);
+  drawDays(month, year);
   addListeners();
 }
 
