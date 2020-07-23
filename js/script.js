@@ -88,11 +88,33 @@ function drawDays (month, year) {
   var compiled = Handlebars.compile(template);
 
   for (var i = 1; i <= monthDays; i++) {
+
+    var weekDay = mom.weekday();
+    // var day = mom.day(i);
+
+    if (i == 1) {
+      console.log(weekDay);
+      for (var j = 0; j < weekDay; j++) {
+        var dayHTML = compiled({
+          day: '',
+          datecomplete: ''
+        });
+        target.prepend(dayHTML);
+      }
+    }
+
     var datecomplete = moment({ year: mom.year(), month: mom.month(), day: i});
     var dayHTML = compiled({
       day: i,
       datecomplete: datecomplete.format('YYYY-MM-DD')
     });
+
+    // if (day == 6) {
+    //   console.log(day);
+    //   var sunday = $('.day');
+    //   sunday.addClass('red');
+    // }
+
     target.append(dayHTML);
   }
 

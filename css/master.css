@@ -107,3 +107,8 @@ ul {
 .red {
   color: red;
 }
+.day-of-week {
+  width: calc(100% / 7);
+  height: 50px;
+  float: left;
+}
