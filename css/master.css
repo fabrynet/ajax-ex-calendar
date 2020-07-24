@@ -138,6 +138,9 @@ ul {
   .months {
     height: 60px;
   }
+  .months span {
+    font-size: 12px;
+  }
   .days-of-week {
     height: 40px;
   }
