@@ -173,7 +173,7 @@ function printError (month, year) {
     month: monthTxt,
     monthIndex: month,
     year: year,
-    error: '(non è possibile prendere le festività per il mese selezionato)'
+    error: '(dati non disponibili)'
   });
   target.append(errorHTML);
 }
