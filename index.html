@@ -22,7 +22,10 @@
       <div class="prev">
         <i class="fas fa-angle-left"></i>
       </div>
-      <h1 data-month="{{ monthNumber }}">{{ month }} {{ year }}</h1>
+      <div>
+        <h1 data-month="{{ monthIndex }}" data-year="{{ year }}">{{ month }} {{ year }}</h1>
+        <span>{{ error }}</span>
+      </div>
       <div class="next">
         <i class="fas fa-angle-right"></i>
       </div>

@@ -28,31 +28,35 @@ function sendKeyup(event) {
 }
 
 function prevMonth () {
-  var year = 2018;
-  var monthNum = $('.months h1').data('month');
 
-  if (monthNum == 1) {
-    alert('Attenzione, non è possibile andare nel ' + (year - 1));
-    var monthPrev = 1;
+  var yearPrev = $('.months h1').data('year');
+  var monthIndex = $('.months h1').data('month');
+
+  if (monthIndex == 1) {
+    // alert('Attenzione, non è possibile andare nel ' + (year - 1));
+    var yearPrev = yearPrev - 1;
+    var monthPrev = 12;
   } else {
-    var monthPrev = monthNum - 1;
+    var monthPrev = monthIndex - 1;
   }
-  drawMonths(monthPrev, year);
-  drawDays(monthPrev, year);
+  drawMonths(monthPrev, yearPrev);
+  drawDays(monthPrev, yearPrev);
 }
 
 function nextMonth () {
-  var year = 2018;
-  var monthNum = $('.months h1').data('month');
 
-  if (monthNum == 12) {
-    alert('Attenzione, non è possibile andare nel ' + (year + 1));
-    var monthNext = 12;
+  var yearNext = $('.months h1').data('year');
+  var monthIndex = $('.months h1').data('month');
+
+  if (monthIndex == 12) {
+    // alert('Attenzione, non è possibile andare nel ' + (year + 1));
+    var yearNext = yearNext + 1;
+    var monthNext = 1;
   } else {
-    var monthNext = monthNum + 1;
+    var monthNext = monthIndex + 1;
   }
-  drawMonths(monthNext, year);
-  drawDays(monthNext, year);
+  drawMonths(monthNext, yearNext);
+  drawDays(monthNext, yearNext);
 }
 
 function drawMonths (month, year) {
@@ -64,11 +68,11 @@ function drawMonths (month, year) {
   var compiled = Handlebars.compile(template);
 
   var mom = moment(month,'M');
-  var monthOfYear = mom.format('MMMM');
+  var monthTxt = mom.format('MMMM');
 
   var monthHTML = compiled({
-    month: monthOfYear,
-    monthNumber: month,
+    month: monthTxt,
+    monthIndex: month,
     year: year
   });
   target.prepend(monthHTML);
@@ -124,7 +128,6 @@ function drawDays (month, year) {
 
   }
 
-  drawMonths (month, year);
   getHolidays(month, year);
 
 }
@@ -145,15 +148,34 @@ function getHolidays(month, year) {
       if (success) {
         printHolidays(holidays);
       } else {
-        console.log(data);
+        console.log('Chiamata sbagliata:', data);
+        printError(month, year);
       }
     },
     error: function(err) {
-      console.log(err);
+      console.log('Errore:', err);
+      printError(month, year);
     }
   });
 
 }
+
+function printError (month, year) {
+  var target = $('.months');
+  target.empty();
+  var template = $('#months-template').html();
+  var compiled = Handlebars.compile(template);
+  var mom = moment(month,'M');
+  var monthTxt = mom.format('MMMM');
+  var errorHTML = compiled({
+    month: monthTxt,
+    monthIndex: month,
+    year: year,
+    error: '(non è possibile prendere le festività per il mese selezionato)'
+  });
+  target.append(errorHTML);
+}
+
 
 function printHolidays (holidays) {
 
@@ -161,23 +183,23 @@ function printHolidays (holidays) {
   var compiled = Handlebars.compile(template);
 
   for (var i = 0; i < holidays.length; i++) {
-  var day = $('.day[data-datecomplete="' + holidays[i].date + '"]');
-  if (day.hasClass('grey')) {
-    day.removeClass('grey');
-  }
-  day.addClass('red');
-  holidayHTML = compiled({
-    holiday: holidays[i].name
-  });
-  day.append(holidayHTML);
+    var day = $('.day[data-datecomplete="' + holidays[i].date + '"]');
+    if (day.hasClass('grey')) {
+      day.removeClass('grey');
+    }
+    day.addClass('red');
+    var holidayHTML = compiled({
+      holiday: holidays[i].name
+    });
+    day.append(holidayHTML);
   }
 }
 
 function init() {
-  var month = 1;
-  var year = 2018;
-  drawMonths(month, year);
-  drawDays(month, year);
+  var startingMonth = 1;
+  var startingYear = 2018;
+  drawMonths(startingMonth, startingYear);
+  drawDays(startingMonth, startingYear);
   addListeners();
 }
 
