@@ -89,11 +89,13 @@ function drawDays (month, year) {
 
   for (var i = 1; i <= monthDays; i++) {
 
+    var date = i + "-" + month + "-" + year;
+    var mom = moment(date,'D-M-YYYY');
+
     var weekDay = mom.weekday();
-    // var day = mom.day(i);
+    // console.log(weekDay);
 
     if (i == 1) {
-      console.log(weekDay);
       for (var j = 0; j < weekDay; j++) {
         var dayHTML = compiled({
           day: '',
@@ -104,18 +106,22 @@ function drawDays (month, year) {
     }
 
     var datecomplete = moment({ year: mom.year(), month: mom.month(), day: i});
-    var dayHTML = compiled({
+    var obj = {
       day: i,
       datecomplete: datecomplete.format('YYYY-MM-DD')
-    });
-
-    // if (day == 6) {
-    //   console.log(day);
-    //   var sunday = $('.day');
-    //   sunday.addClass('red');
-    // }
-
+    }
+    var dayHTML = compiled(obj);
     target.append(dayHTML);
+
+    if (weekDay == 5) {
+      var day = $('.day[data-datecomplete="' + obj.datecomplete + '"]');
+      day.addClass('grey');
+    }
+
+    if (weekDay == 6) {
+      $('.day[data-datecomplete="' + obj.datecomplete + '"]').addClass('red');
+    }
+
   }
 
   drawMonths (month, year);
@@ -155,12 +161,15 @@ function printHolidays (holidays) {
   var compiled = Handlebars.compile(template);
 
   for (var i = 0; i < holidays.length; i++) {
-  var target = $('.day[data-datecomplete="' + holidays[i].date + '"]');
-  target.addClass('red');
+  var day = $('.day[data-datecomplete="' + holidays[i].date + '"]');
+  if (day.hasClass('grey')) {
+    day.removeClass('grey');
+  }
+  day.addClass('red');
   holidayHTML = compiled({
     holiday: holidays[i].name
   });
-  target.append(holidayHTML);
+  day.append(holidayHTML);
   }
 }
 

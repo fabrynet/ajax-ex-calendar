@@ -50,7 +50,7 @@ ul {
   max-width: 150px;
 }
 .modal i {
-  font-size: 2em;
+  font-size: 3em;
 }
 .btn {
   width: 100%;
@@ -83,6 +83,12 @@ ul {
 .months .next {
   cursor: pointer;
 }
+.day-of-week {
+  width: calc(100% / 7);
+  height: 70px;
+  float: left;
+  border-bottom: 1px solid lightgrey;
+}
 .days {
   width: 800px;
   height: 800px;
@@ -96,19 +102,21 @@ ul {
   align-items: center;
   width: calc(100% / 7);
   height: calc(100% / 7);
-  border: 1px solid black;
+  border-bottom: 1px solid lightgrey;
   cursor: pointer;
+}
+.day h1 {
+  position: absolute;
+  top: 10px;
 }
 .day span {
   position: absolute;
-  bottom: 10px;
-  font-size: 12px;
+  bottom: 15px;
+  font-size: 14px;
 }
 .red {
   color: red;
 }
-.day-of-week {
-  width: calc(100% / 7);
-  height: 50px;
-  float: left;
+.grey {
+  color: grey;
 }
