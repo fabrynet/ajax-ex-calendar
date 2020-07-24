@@ -120,3 +120,37 @@ ul {
 .grey {
   color: grey;
 }
+@media all and (max-width: 850px) {
+  h1 {
+    font-size: 20px;
+  }
+  .container {
+    min-width: 100%;
+    min-height: 100vh;
+  }
+  .modal {
+    min-width: 100%;
+    min-height: 100vh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .months {
+    height: 60px;
+  }
+  .days-of-week {
+    height: 40px;
+  }
+  .days {
+    width: 100%;
+    height: calc(100vh / 100px);
+  }
+  .day {
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+  }
+  .day span {
+    font-size: 12px;
+  }
+
+}

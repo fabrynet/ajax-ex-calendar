@@ -14,6 +14,8 @@
 function addListeners() {
   $(document).on('click','.prev', prevMonth);
   $(document).on('click','.next', nextMonth);
+  $(document).on('swipeleft', nextMonth);
+  $(document).on('swiperight', prevMonth);
   $(document).keyup(sendKeyup);
 }
 
